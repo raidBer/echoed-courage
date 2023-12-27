@@ -11,7 +11,7 @@ import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
 import { LlamaTemplate } from "../utils/prompt_template.js";
 
-import { countTokens } from "./src/tokenizer.js";
+import { countTokens } from "../utils/tokenizer.js";
 const llamaTemplate = LlamaTemplate();
 
 const MODELS = [
