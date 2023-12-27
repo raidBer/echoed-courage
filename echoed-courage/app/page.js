@@ -1,5 +1,17 @@
+"use client";
+
+import { useEffect, useReducer, useRef, useState } from "react";
+import ChatForm from "./components/ChatForm.js";
+import Message from "./components/Message.js";
+import SlideOver from "./components/SlideOver.js";
+import EmptyState from "./components/EmptyState.js";
+import QueuedSpinner from "./components/QueuedSpinner.js";
+import { Cog6ToothIcon } from "@heroicons/react/20/solid";
+import { useCompletion } from "ai/react";
+import { Toaster, toast } from "react-hot-toast";
 import { LlamaTemplate } from "../utils/prompt_template.js";
 
+import { countTokens } from "./src/tokenizer.js";
 const llamaTemplate = LlamaTemplate();
 
 const MODELS = [
@@ -150,4 +162,84 @@ export default function HomePage() {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, completion]);
+
+  return (
+    <div className="font-serif tracking-wider">
+      <nav className="grid text-lg grid-cols-2 py-3 pl-6 pr-3 bg-darkGreen sm:grid-cols-3 sm:pl-0">
+        <div className="hidden sm:inline-block"></div>
+        <div className="font-semibold text-white w-full sm:text-center">
+          {"🤖"}
+          <span className="hidden py-2 sm:inline-block">
+            Share your experience using AI
+          </span>{" "}
+        </div>
+        <div className="flex justify-end">
+          <button
+            type="button"
+            className="inline-flex items-center px-3 py-2 text-sm font-semibold text-darkBlue bg-slate-100 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            onClick={() => setOpen(true)}
+          >
+            <Cog6ToothIcon
+              className="w-5 h-5 text-gray-500 sm:mr-2 group-hover:text-gray-900"
+              aria-hidden="true"
+            />{" "}
+            <span className="hidden sm:inline">Settings</span>
+          </button>
+        </div>
+      </nav>
+
+      <Toaster position="top-left" reverseOrder={false} />
+
+      <main className="max-w-2xl pb-5 mx-auto mt-4 sm:px-4">
+        <div className="text-center"></div>
+        {messages.length == 0 && (
+          <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
+        )}
+
+        <SlideOver
+          open={open}
+          setOpen={setOpen}
+          systemPrompt={systemPrompt}
+          setSystemPrompt={setSystemPrompt}
+          handleSubmit={handleSettingsSubmit}
+          temp={temp}
+          setTemp={setTemp}
+          maxTokens={maxTokens}
+          setMaxTokens={setMaxTokens}
+          topP={topP}
+          setTopP={setTopP}
+          models={MODELS}
+          size={model}
+          setSize={setModel}
+          shortStory={shortStory}
+          setShortStory={setShortStory}
+        />
+
+        <ChatForm
+          prompt={input}
+          setPrompt={setInput}
+          onSubmit={handleSubmit}
+          completion={completion}
+          metrics={metrics}
+        />
+
+        {error && <div>{error}</div>}
+
+        <article className="pb-24">
+          {messages.map((message, index) => (
+            <Message
+              key={`message-${index}`}
+              message={message.text}
+              isUser={message.isUser}
+            />
+          ))}
+          <Message message={completion} isUser={false} />
+
+          {starting && <QueuedSpinner />}
+
+          <div ref={bottomRef} />
+        </article>
+      </main>
+    </div>
+  );
 }
