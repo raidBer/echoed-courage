@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition, Listbox } from "@headlessui/react";
+import { Cog6ToothIcon } from "@heroicons/react/20/solid";
+
 import {
   XMarkIcon,
   ChevronUpDownIcon,
@@ -40,19 +42,23 @@ export default function SlideOver({
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                   <form
                     onSubmit={(e) => handleSubmit(e)}
-                    className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl"
+                    className="flex h-full flex-col divide-y divide-darkWhite bg-white shadow-xl"
                   >
                     <div className="h-0 flex-1 overflow-y-auto">
-                      <div className="border-l-2 border-gray-500 bg-darkGreen px-4 py-5 sm:px-6">
+                      <div className="border-l-2 border-darkWhite bg-darkBlue px-4 py-5 sm:px-6">
                         <div className="flex items-center justify-between">
-                          <Dialog.Title className="text-base font-semibold leading-6 text-white">
-                            🤖 Share your experience
+                          <Dialog.Title className="text-base flex items-center font-semibold leading-6 text-white">
+                            <Cog6ToothIcon
+                              className="w-5 h-5 text-white sm:mr-2"
+                              aria-hidden="true"
+                            />
+                            <span>Settings</span>
                           </Dialog.Title>
 
                           <div className="ml-3 flex h-7 items-center">
                             <button
                               type="button"
-                              className="rounded-md bg-darkGreen text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                              className="rounded-md bg-darkBlue text-lightWhite hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                               onClick={() => setOpen(false)}
                             >
                               <span className="sr-only">Close panel</span>
@@ -65,7 +71,7 @@ export default function SlideOver({
                         </div>
                       </div>
                       <div className="flex flex-1 flex-col justify-between">
-                        <div className="divide-y divide-gray-200 px-4 sm:px-6">
+                        <div className="divide-y divide-darkWhite px-4 sm:px-6">
                           <div className="space-y-6 pb-5 pt-6">
                             <div>
                               <label
@@ -77,9 +83,10 @@ export default function SlideOver({
 
                               <p
                                 id="system-prompt-description"
-                                className="mt-2 text-xs text-gray-500"
+                                className="mt-2 text-xs text-darkBlue"
                               >
-                                Larger size means smarter, but slower.
+                                More parameters make the model smarter but
+                                slower.
                               </p>
                               <div className="">
                                 <Listbox value={size} onChange={setSize}>
@@ -90,7 +97,7 @@ export default function SlideOver({
                                       </span>
                                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                         <ChevronUpDownIcon
-                                          className="h-5 w-5 text-gray-400"
+                                          className="h-5 w-5 text-darkWhite"
                                           aria-hidden="true"
                                         />
                                       </span>
@@ -101,7 +108,7 @@ export default function SlideOver({
                                       leaveFrom="opacity-100"
                                       leaveTo="opacity-0"
                                     >
-                                      <Listbox.Options className="absolute mt-1 max-h-60 w-full shadow-md overflow-auto border-gray-700 rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                      <Listbox.Options className="absolute mt-1 max-h-60 w-full shadow-md overflow-auto border-darkBlue rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                         {models
                                           ? models.map((model, modelIdx) => (
                                               <Listbox.Option
@@ -109,8 +116,8 @@ export default function SlideOver({
                                                 className={({ active }) =>
                                                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
                                                     active
-                                                      ? "bg-gray-100 text-gray-900"
-                                                      : "text-gray-900"
+                                                      ? "bg-lightWhite text-darkBlue"
+                                                      : "text-darkBlue"
                                                   }`
                                                 }
                                                 value={model}
@@ -127,7 +134,7 @@ export default function SlideOver({
                                                       {model.name}
                                                     </span>
                                                     {selected ? (
-                                                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600">
+                                                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-darkWhite">
                                                         <CheckIcon
                                                           className="h-5 w-5"
                                                           aria-hidden="true"
@@ -158,12 +165,13 @@ export default function SlideOver({
                               <input
                                 className={`
                                 relative peer shrink-0
-                                appearance-none w-4 h-4 border-2 border-darkGreen rounded-sm bg-white
-                                mt-1 checked:bg-darkGreen checked:border-0 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100`}
+                                appearance-none w-4 h-4 border-2 border-darkBlue rounded-sm bg-white
+                                mt-1 checked:bg-darkBlue checked:border-0 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100`}
                                 type="checkbox"
                                 checked={shortStory}
                                 onChange={() => {
                                   setShortStory(!shortStory);
+                                  console.log(shortStory);
                                 }}
                                 role="switch"
                               />
@@ -173,7 +181,7 @@ export default function SlideOver({
                               className="mt-2 text-xs text-gray-500"
                               id="temperature-description"
                             >
-                              Control the length and the details added to the
+                              Control the additional details and the length of
                               story
                             </p>
                           </div>

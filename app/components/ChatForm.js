@@ -16,7 +16,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, metrics, completion }) => {
   };
 
   return (
-    <footer className="z-10 fixed bottom-0 left-0 right-0 bg-slate-300 border-t-2">
+    <footer className="z-10 fixed bottom-0 left-0 right-0 bg-darkBlue border-t-2">
       <div className="container max-w-2xl mx-auto px-5 pb-8">
         <Metrics
           startedAt={metrics.startedAt}
@@ -30,7 +30,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, metrics, completion }) => {
             autoComplete="off"
             autoFocus
             name="prompt"
-            className="overflow-auto resize-none flex-grow block w-full rounded-l-md border-0 py-3 text-gray-900 outline-none focus:outline-none placeholder:text-gray-400 sm:leading-6"
+            className="overflow-auto resize-none flex-grow block w-full rounded-lg border-0 py-3 text-darkBlue outline-none focus:outline-none placeholder:text-lightBlue sm:leading-6"
             placeholder="Express yourself!"
             required={true}
             value={prompt}
@@ -43,10 +43,10 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, metrics, completion }) => {
             }}
           />
           <button
-            className="bg-darkGreen hover:bg-darkBlue items-center font-semibold text-white rounded-r-md px-5 py-3"
+            className="bg-lightBlue text-white  items-center font-semibold rounded-lg ml-3 px-10 py-4"
             type="submit"
           >
-            Generate
+            Enter
           </button>
         </form>
       </div>

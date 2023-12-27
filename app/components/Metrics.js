@@ -1,4 +1,4 @@
-import { countTokens } from "../../utils/tokenizer";
+import { countTokens } from "../utils/tokenizer";
 
 export default function Metrics({
   startedAt,
@@ -20,33 +20,31 @@ export default function Metrics({
     tokenCount > 0 && runningDuration > 0 && tokenCount / runningDuration;
 
   return (
-    <dl className="grid grid-cols-12 gap-2">
+    <dl className="grid grid-cols-12 gap-2 text-lightWhite">
       <div className="col-span-3 sm:col-span-4 flex items-center justify-center py-4 sm:text-sm text-xs">
-        <dd className="text-gray-900 pr-3">
+        <dd className="pr-3">
           {timeToFirstToken ? timeToFirstToken.toFixed(2) : "—"}
         </dd>
-        <dt className="font-medium text-gray-500">
-          <span className="hidden sm:inline">sec to first token</span>
+        <dt className="font-medium">
+          <span className="hidden sm:inline">sec to </span> first token
         </dt>
       </div>
       <div className="col-span-3 flex items-center justify-center py-4 sm:text-sm text-xs">
-        <dd className="text-gray-900 pr-2">
+        <dd className="pr-2">
           {tokensPerSecond ? tokensPerSecond.toFixed(2) : "—"}
         </dd>
-        <dt className="font-medium text-gray-500">
+        <dt className="font-medium ">
           <span className="hidden sm:inline">tokens</span>
           <span className="hidden sm:inline">sec</span>
         </dt>
       </div>
       <div className="col-span-3 sm:col-span-2 flex items-center justify-center py-4 sm:text-sm text-xs">
-        <dd className="text-gray-900 pr-2">{tokenCount || "—"}</dd>
-        <dt className="font-medium text-gray-500">tokens</dt>
+        <dd className=" pr-2">{tokenCount || "—"}</dd>
+        <dt className="font-medium">tokens</dt>
       </div>
       <div className="col-span-3 flex items-center justify-center py-4 sm:text-sm text-xs">
-        <dd className="text-gray-900 pr-2">
-          {Math.max(runningDuration, 0).toFixed(2)}
-        </dd>
-        <dt className="font-medium text-gray-500">run time</dt>
+        <dd className=" pr-2">{Math.max(runningDuration, 0).toFixed(2)}</dd>
+        <dt className="font-medium ">run time</dt>
       </div>
     </dl>
   );

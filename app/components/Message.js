@@ -1,7 +1,7 @@
 import { TelegramIcon, TwitterIcon } from "react-share";
 
 const Message = ({ message, isUser }) => {
-  let containerClass = "bg-green";
+  let containerClass = "bg-darkWhite";
   if (isUser) {
     containerClass = "";
   }
@@ -40,7 +40,7 @@ const Message = ({ message, isUser }) => {
         </span>
       )}
 
-      <div className="flex flex-col text-sm sm:text-base flex-1 gap-y-4 mt-1">
+      <div className="flex flex-col text-sm sm:text-base flex-1 gap-y-4 mt-1 text-justify">
         {message.split("\n").map(
           (text, index) =>
             text.length > 0 && (
