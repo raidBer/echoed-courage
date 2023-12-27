@@ -73,7 +73,7 @@ export default function HomePage() {
   const [model, setModel] = useState(MODELS[2]); // default to 70B
   const [systemPrompt, setSystemPrompt] = useState(
     `You're talking to a traumatized war victim, the victim can only communicate with a few words, you should generate a ${
-      shortStory ? " 5 to 6 lignes" : "short"
+      shortStory ? " 5 to 6 lines" : "short"
     } story based on the victim's input, use I pronoun, do not add any details that are not mentioned in the input.`
   );
   const [temp, setTemp] = useState(0.75);
